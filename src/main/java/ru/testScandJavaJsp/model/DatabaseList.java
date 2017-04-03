@@ -1,5 +1,6 @@
 package ru.testScandJavaJsp.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
@@ -13,11 +14,11 @@ import java.util.Map;
 public class DatabaseList {
 
     public static final List<Database> list = Arrays.asList(
-       new Database(1, LocalDateTime.of(2015, Month.MAY, 28, 10, 0),"Anton","report1"),
-       new Database(1, LocalDateTime.of(2015, Month.MAY, 29, 10, 0),"Anton","report2"),
-       new Database(1, LocalDateTime.of(2015, Month.MAY, 29, 10, 0),"Sergey","report1"),
-       new Database(1, LocalDateTime.of(2015, Month.MAY, 29, 10, 0),"Sergey","report2"),
-       new Database(1, LocalDateTime.of(2015, Month.MAY, 26, 10, 0),"Daria","report1")
+       new Database(1, LocalDate.of(2015, Month.MAY, 28),"Anton","report1"),
+       new Database(1, LocalDate.of(2015, Month.MAY, 29),"Anton","report2"),
+       new Database(1, LocalDate.of(2015, Month.MAY, 29),"Sergey","report1"),
+       new Database(1, LocalDate.of(2015, Month.MAY, 29),"Sergey","report2"),
+       new Database(1, LocalDate.of(2015, Month.MAY, 26),"Daria","report1")
     );
 
 }
