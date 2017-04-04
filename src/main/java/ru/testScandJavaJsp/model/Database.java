@@ -21,7 +21,7 @@ public class Database {
         return Id;
     }
 
-    public LocalDate getDateTime() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -37,8 +37,8 @@ public class Database {
         Id = id;
     }
 
-    public void setDateTime(LocalDate dateTime) {
-        this.date = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public void setPerformer(String performer) {
@@ -49,10 +49,14 @@ public class Database {
         this.activity = activity;
     }
 
-    public Database(int id, LocalDate startDate, String performer, String activity) {
+    public Database(int id, LocalDate date, String performer, String activity) {
         Id = id;
-        this.date = startDate;
+        this.date = date;
         this.performer = performer;
         this.activity = activity;
+    }
+
+    public Database() {
+
     }
 }

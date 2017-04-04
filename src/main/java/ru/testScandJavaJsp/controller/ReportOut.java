@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Created by 15 on 03.04.2017.
@@ -33,17 +34,37 @@ public class ReportOut extends Dispatcher {
         ServletContext ctx = getServletContext();
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyy-MM-dd");
+        ArrayList<Database> newList = new ArrayList<>();
+
         for (int i = 0; i < DatabaseList.list.size(); i++) {
             if
-                    (DatabaseList.list.get(i).getDateTime().compareTo(LocalDate.parse(request.getParameter("startDate"))) >= 0
-                    && DatabaseList.list.get(i).getDateTime().compareTo(LocalDate.parse(request.getParameter("endDate"))) <= 0) {
-                this.forward("/success.jsp", request, response);
-//            } else {
-//                this.forward("/successLogin.jsp", request, response);
-//            }
-            }
+                    (DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("startDate"))) >= 0
+                    && DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("endDate"))) <= 0
+                    && DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
+                    ) {
+                String performer = request.getParameter("performer");
+//                String activity = request.getParameter("activity");
+                Database newBase = new Database();
 
+                newBase.setPerformer(performer);
+
+                newBase.setActivity(DatabaseList.list.get(i).getActivity());
+//                newBase.setActivity(activity);
+                newList.add(newBase);
+            }
+        }
+//            ctx.setAttribute("user", newBase);
+            request.setAttribute("users", newList);
+
+            request.getRequestDispatcher("/success.jsp").forward(request, response);
+            //                this.forward("/success.jsp", request, response);
 
         }
-    }
+
+
+    //    }} else {
+//                this.forward("/successLogin.jsp", request, response);
+//            }
+//}
+
 }
