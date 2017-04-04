@@ -13,6 +13,20 @@
     <title>Страница успешного входа в систему</title>
 </head>
 <body>
+<h1>Заполните следующие поля для вывода списка отчетов:</h1>
+<form action="ReportOut" method="post">
+    Start date: <input type="date" name="startDate" size="10"><br>
+    End date: <input type="date" name="endDate" size="10"><br>
+    Performer: <input type="text" name="performer"><br>
+    Time period: <input type="datetime-local" name="address"><br>
+
+    <p>
+    <table>
+        <tr>
+            <th><small>
+                <input type="submit" name="success" value="Submit">
+            </small>
+
 <h1>По вашему запросу найдены следующие отчеты:</h1>
 
 <c:forEach items="${users}" var="performer">
