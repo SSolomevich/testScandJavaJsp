@@ -55,8 +55,10 @@ public class ReportOut extends Dispatcher {
         }
 //            ctx.setAttribute("user", newBase);
             request.setAttribute("users", newList);
-
-            request.getRequestDispatcher("/success.jsp").forward(request, response);
+            if (newList.size()>0) {
+                request.getRequestDispatcher("/success.jsp").forward(request, response);
+            }
+            else request.getRequestDispatcher("/error.jsp").forward(request, response);
             //                this.forward("/success.jsp", request, response);
 
         }
