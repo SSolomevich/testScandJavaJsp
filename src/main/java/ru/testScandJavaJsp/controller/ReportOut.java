@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by 15 on 03.04.2017.
@@ -36,6 +39,17 @@ public class ReportOut extends Dispatcher {
         format.applyPattern("yyyy-MM-dd");
         ArrayList<Database> newList = new ArrayList<>();
 
+        Set<Database> set = new HashSet<>();
+        for (int i=0;i<DatabaseList.list.size(); i++)
+        {
+            set.add(DatabaseList.list.get(i));
+        }
+
+//        set.add(new Database(0,LocalDate.of(2015, Month.NOVEMBER, 8),"All performers","report111"));
+
+        request.setAttribute("l", set);
+
+
         for (int i = 0; i < DatabaseList.list.size(); i++) {
             if
                     (DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("startDate"))) >= 0
@@ -55,6 +69,7 @@ public class ReportOut extends Dispatcher {
         }
 //            ctx.setAttribute("user", newBase);
             request.setAttribute("users", newList);
+
             if (newList.size()>0) {
                 request.getRequestDispatcher("/success.jsp").forward(request, response);
             }
@@ -68,5 +83,15 @@ public class ReportOut extends Dispatcher {
 //                this.forward("/successLogin.jsp", request, response);
 //            }
 //}
+
+
+
+
+
+
+
+
+
+
 
 }
