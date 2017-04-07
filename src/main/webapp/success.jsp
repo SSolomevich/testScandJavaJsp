@@ -14,7 +14,7 @@
 </head>
 <body>
 <h1>Заполните следующие поля для вывода списка отчетов:</h1>
-<form action="ReportOut" method="post">
+<form action="test" method="post">
     Start date: <input type="date" name="startDate" size="10"><br>
     End date: <input type="date" name="endDate" size="10"><br>
     <%--Performer: <input type="text" name="performer"><br>--%>
@@ -39,15 +39,16 @@
 
 <h1>По вашему запросу найдены следующие отчеты:</h1>
 
+
+</form>
 <c:forEach items="${users}" var="performer">
-<jsp:useBean id="user" class="ru.testScandJavaJsp.model.Database" scope="application"/>
+    <%--<jsp:useBean id="user" class="ru.testScandJavaJsp.model.Database" scope="application"/>--%>
     <tr>
-        <%--<td>Performer: <%= user.getPerformer()%> </td>--%>
+            <%--<td>Performer: <%= user.getPerformer()%> </td>--%>
         <td>Performer:${performer.performer}</td>
-        <%--<td>Activity: <%= user.getActivity()%></td>--%>
-            <td>Activity: ${performer.activity}</td><br>
+            <%--<td>Activity: <%= user.getActivity()%></td>--%>
+        <td>Activity: ${performer.activity}</td><br>
     </tr>
 </c:forEach>
-
 </body>
 </html>

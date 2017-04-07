@@ -1,4 +1,6 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="ru.testScandJavaJsp.model.Database" %>
+<%@ page import="ru.testScandJavaJsp.model.DatabaseList" %><%--
   Created by IntelliJ IDEA.
   User: 15
   Date: 06.04.2017
@@ -12,34 +14,64 @@
     <title></title>
 </head>
 <body>
+
 <h1>Заполните следующие поля для вывода списка отчетов:</h1>
-<form action="ReportOut" method="post">
+<form action="test" method="post">
     Start date: <input type="date" name="startDate" size="10"><br>
     End date: <input type="date" name="endDate" size="10"><br>
     Performer: <input type="text" name="performer" size="10"><br>
     Performer:<select name="performer" class="frmCmb1">
     <option value="">All performers</option>
     <c:forEach var="lists" items="${l}">
+
         <option value="${lists.performer}">
                 ${lists.performer}
         <%--<option value="${lists}">--%>
                 <%--${lists}--%>
         </option>
-    </c:forEach>
+    </c:forEach><br>
+
 </select>
+    <%--Performer:   <c:out value="${sessionScope.l}"/><br>--%>
 
-<%--<select name="performer" size="1" >--%>
-    <%--<c:forEach items="${DatabaseList.list}" var="performer">--%>
-        <%--<jsp:useBean id="user" class="ru.testScandJavaJsp.model.DatabaseList" scope="application"/>--%>
 
-                <%--<td>Performer: <%= user.getPerformer()%> </td>--%>
-            <%--<td>Performer:${performer.performer}</td>--%>
-                <%--<td>Activity: <%= user.getActivity()%></td>--%>
-            <%--<td>Activity: ${performer.activity}</td><br>--%>
-                    <%--<option value="1более">performer.performer</option>--%>
+    <%--<jsp:useBean id="user" class="ru.testScandJavaJsp.model.Database" scope="application"/>--%>
 
-    <%--</c:forEach>--%>
-<%--</select><br />--%>
+    <%--Performer:--%>
+    <%--<%--%>
+        <%--List linhas = (List)request.getAttribute("l");--%>
+        <%--for(int i = 0; i < linhas.size(); i++) {--%>
+            <%--Database baseLocal = linhas.get(i);--%>
+    <%--%>--%>
+    <%--<select name="linhas">--%>
+        <%--<option value=<%=linhaLocal.getId()%>> <%=linhaLocal.getDescricao();%> </option>																</select>--%>
+    <%--<% } //fecha for--%>
+    <%--%>--%>
+
+
+    <%--<select name="linhas">--%>
+        <%--<%--%>
+            <%--List linhas = (List)request.getAttribute("l");--%>
+            <%--for(int i = 0; i < linhas.size(); i++) {--%>
+
+                <%--Database linhaLocal = linhas.get(i);--%>
+        <%--%>--%>
+        <%--<option value=<%=linhaLocal.getId()%>> <%=linhaLocal.getPerformer()%> </option>--%>
+        <%--<% } //fecha for--%>
+        <%--%>--%>
+    <%--</select>--%>
+
+<%--</select>--%>
+
+    <%--<br><br><br>--%>
+    <%--<select>--%>
+        <%--<c:forEach var="list" items="${Database.list}">--%>
+            <%--<option value="${list.id}">${list.performer}</option>--%>
+        <%--</c:forEach>--%>
+    <%--</select>--%>
+
+
+
     Time period: <input type="datetime-local" name="address"><br>
 
     <p>
@@ -51,5 +83,13 @@
 
     </table>
 </form>
+
+
+</select>
+
+</form>
+<%--<jsp:useBean id="user" class="ru.testScandJavaJsp.model.Database" scope="application"/>--%>
+<%--Пользователь: <%= user.getPerformer()%><br>--%>
+<%--Email: <%= user.getActivity()%><br>--%>
 </body>
 </html>
