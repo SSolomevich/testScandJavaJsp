@@ -16,22 +16,34 @@
 <body>
 
 <h1>Заполните следующие поля для вывода списка отчетов:</h1>
-<form action="test" method="post">
-    Start date: <input type="date" name="startDate" size="10"><br>
-    End date: <input type="date" name="endDate" size="10"><br>
-    Performer: <input type="text" name="performer" size="10"><br>
-    Performer:<select name="performer" class="frmCmb1">
+<form action="" method="post">
+    <table>
+   <td>
+       Start date: <input type="date" name="startDate" size="10"> </td>
+        <td>End date: <input type="date" name="endDate" size="10"></td>
+
+
+        <td> Performer:<select name="performer" class="frmCmb1">
     <option value="">All performers</option>
-    <c:forEach var="lists" items="${l}">
+    <c:forEach var="list" items="${list}">
+        <option value="${list}">
+                ${list}
+               </option>
+    </c:forEach>
 
-        <option value="${lists.performer}">
-                ${lists.performer}
-        <%--<option value="${lists}">--%>
-                <%--${lists}--%>
+    </select>
+    </td>
+
+   <td> Time period: <select name="comboBoxDate" class="frmCmb1">
+    <option value=""></option>
+    <c:forEach var="list2" items="${listComboBox}">
+        <option value="${list2}">
+                ${list2}
         </option>
-    </c:forEach><br>
+    </c:forEach>
+   </select></td>
+    </table>
 
-</select>
     <%--Performer:   <c:out value="${sessionScope.l}"/><br>--%>
 
 
@@ -70,10 +82,6 @@
         <%--</c:forEach>--%>
     <%--</select>--%>
 
-
-
-    Time period: <input type="datetime-local" name="address"><br>
-
     <p>
     <table>
         <tr>
@@ -84,12 +92,5 @@
     </table>
 </form>
 
-
-</select>
-
-</form>
-<%--<jsp:useBean id="user" class="ru.testScandJavaJsp.model.Database" scope="application"/>--%>
-<%--Пользователь: <%= user.getPerformer()%><br>--%>
-<%--Email: <%= user.getActivity()%><br>--%>
 </body>
-</html>
+

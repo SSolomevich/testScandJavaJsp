@@ -1,5 +1,6 @@
 package ru.testScandJavaJsp.controller;
 
+import ru.testScandJavaJsp.model.ComboBoxDateList;
 import ru.testScandJavaJsp.model.Database;
 import ru.testScandJavaJsp.model.DatabaseList;
 
@@ -29,82 +30,127 @@ public class ReportOut extends Dispatcher {
         String msg = "421";
         RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
         // don't add your web-app name to the path
-        Set<Database> set = new HashSet<>();
+        Set<String> set1 = new HashSet<>();
         for (int i=0;i<DatabaseList.list.size(); i++)
         {
-            set.add(DatabaseList.list.get(i));
+            set1.add(DatabaseList.list.get(i).getPerformer());
         }
 
-//        set.add(new Database(0,LocalDate.of(2015, Month.NOVEMBER, 8),"All performers","report111"));
+        req.setAttribute("list", set1);
+//        view.forward(req, resp);
 
-        req.setAttribute("l", set);
+
+        Set<String> set2 = new HashSet<>();
+        for (int i = 0; i< ComboBoxDateList.list.size(); i++)
+        {
+            set2.add(ComboBoxDateList.list.get(i).getComboBoxDate());
+        }
+
+        req.setAttribute("listComboBox", set2);
         view.forward(req, resp);
     }
 
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.print("\"Hello\"");
-//        Database base = UserList.findUser(request.getParameter("user"));
-//        if (user == null){
-//            this.forward("/registration.html", request, response);
-//        } else {
-//            if
-//                    (!user.getPassword().equals(request.getParameter("password"))){
-//                this.forward("/registration.html", request, response);
-//            } else {
-//                this.forward("/successLogin.jsp", request, response);
-//            }
+
+
         DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         ServletContext ctx = getServletContext();
         SimpleDateFormat format = new SimpleDateFormat();
         format.applyPattern("yyyy-MM-dd");
         ArrayList<Database> newList = new ArrayList<>();
 
-        Set<Database> set = new HashSet<>();
+        Set<String> set = new HashSet<>();
         for (int i=0;i<DatabaseList.list.size(); i++)
         {
-            set.add(DatabaseList.list.get(i));
+            set.add(DatabaseList.list.get(i).getPerformer());
+        }
+        request.setAttribute("list", set);
+
+        Set<String> set2 = new HashSet<>();
+        for (int i = 0; i< ComboBoxDateList.list.size(); i++)
+        {
+            set2.add(ComboBoxDateList.list.get(i).getComboBoxDate());
+        }
+        request.setAttribute("listComboBox", set2);
+
+
+
+        if (    request.getParameter("performer").isEmpty()
+
+                || request.getParameter("startDate").isEmpty() && request.getParameter("comboBoxDate").isEmpty()
+                || request.getParameter("endDate").isEmpty() && request.getParameter("comboBoxDate").isEmpty()
+                ) {
+            request.getRequestDispatcher("/errorDateOrPerformer.jsp").forward(request, response);
         }
 
-//        set.add(new Database(0,LocalDate.of(2015, Month.NOVEMBER, 8),"All performers","report111"));
+        else {
+            for (int i = 0; i < DatabaseList.list.size(); i++) {
+                if (
+                        !request.getParameter("startDate").isEmpty()
+                                &&
+                                !request.getParameter("endDate").isEmpty()) {
 
-        request.setAttribute("l", set);
-//        request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    if
+                            (DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("startDate"))) >= 0
+                            && DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("endDate"))) <= 0
+                            && DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
+                            ) {
+                        String performer = request.getParameter("performer");
+                        Database newBase = new Database();
+                        newBase.setPerformer(performer);
+                        newBase.setActivity(DatabaseList.list.get(i).getActivity());
+                        newBase.setDate(DatabaseList.list.get(i).getDate());
+                        newList.add(newBase);
+                    }
 
-        for (int i = 0; i < DatabaseList.list.size(); i++) {
-            if
-                    (DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("startDate"))) >= 0
-                    && DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("endDate"))) <= 0
-                    && DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
-                    ) {
-                String performer = request.getParameter("performer");
-//                String activity = request.getParameter("activity");
-                Database newBase = new Database();
+                } else if (!request.getParameter("comboBoxDate").isEmpty()) {
+                    LocalDate startDate = LocalDate.now();
+                    LocalDate endDate = LocalDate.now();
+                    String comboBoxDate = request.getParameter("comboBoxDate");
 
-                newBase.setPerformer(performer);
+//                Перебираем все варианты Time period
+                    if (comboBoxDate.equals("Last Calendar Year")) {
+                        startDate = LocalDate.now().withDayOfYear(1).minusYears(1);
+                        endDate = LocalDate.now().withDayOfYear(365).minusYears(1);
+                    }
+                    if (comboBoxDate.equals("Next Calendar Year")) {
+                        startDate = LocalDate.now().withDayOfYear(1).plusYears(1);
+                        endDate = LocalDate.now().withDayOfYear(365).plusYears(1);
+                    }
+//                if (comboBoxDate.equals("Next Calendar Year")) {
+//                    startDate = LocalDate.now().;
+//                    endDate = LocalDate.now().withDayOfYear(365).plusYears(1);
+//                }
 
-                newBase.setActivity(DatabaseList.list.get(i).getActivity());
-//                newBase.setActivity(activity);
-                newList.add(newBase);
+
+                    if
+                            (
+                            DatabaseList.list.get(i).getDate().compareTo(startDate) >= 0
+                                    && DatabaseList.list.get(i).getDate().compareTo(endDate) <= 0
+                                    &&
+                                    DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
+                            ) {
+                        String performer = request.getParameter("performer");
+                        Database newBase = new Database();
+                        newBase.setPerformer(performer);
+                        newBase.setActivity(DatabaseList.list.get(i).getActivity());
+                        newBase.setDate(DatabaseList.list.get(i).getDate());
+                        newList.add(newBase);
+                    }
+                }
             }
-        }
-//            ctx.setAttribute("user", newBase);
+
             request.setAttribute("users", newList);
-
-            if (newList.size()>0) {
-              request.getRequestDispatcher("/success.jsp").forward(request, response);
-            }
-            else request.getRequestDispatcher("/error.jsp").forward(request, response);
-            //                this.forward("/success.jsp", request, response);
-
+            if (newList.size() > 0) {
+                request.getRequestDispatcher("/success.jsp").forward(request, response);
+            } else request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
         }
 
 
-    //    }} else {
-//                this.forward("/successLogin.jsp", request, response);
-//            }
-//}
+
 
 
 
