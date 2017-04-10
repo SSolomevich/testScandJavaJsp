@@ -11,9 +11,11 @@ public class ComboBoxDateList {
 
     public static List<ComboBoxDate> list = Arrays.asList(
 
+            new ComboBoxDate("Last Qrt"),
+            new ComboBoxDate("Last Month"),
             new ComboBoxDate("Last Calendar Year"),
-            new ComboBoxDate("Next Calendar Year"),
-            new ComboBoxDate("Last Qtr"),
-            new ComboBoxDate("Next Qtr")
+            new ComboBoxDate("Current Year to Date"),
+            new ComboBoxDate("Current Qrt to Date"),
+            new ComboBoxDate("Current Month to Date")
     );
 }

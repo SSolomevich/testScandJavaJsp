@@ -14,8 +14,6 @@
     <title>Страница ошибки ввода даты или исполнителя</title>
     <style type="text/css">
 
-
-
         .nameTable1
         {
             font-family: Arial, sans-serif;

@@ -1,5 +1,6 @@
 package ru.testScandJavaJsp.controller;
 
+import org.hibernate.jpa.criteria.expression.function.AggregationFunction;
 import ru.testScandJavaJsp.model.ComboBoxDateList;
 import ru.testScandJavaJsp.model.Database;
 import ru.testScandJavaJsp.model.DatabaseList;
@@ -15,6 +16,7 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -111,18 +113,114 @@ public class ReportOut extends Dispatcher {
                     String comboBoxDate = request.getParameter("comboBoxDate");
 
 //                Перебираем все варианты Time period
+
+                    if (comboBoxDate.equals("Last Qrt")) {
+                        switch (LocalDate.now().getMonthValue())
+                        {
+                            case 1:
+                            case 2:
+                            case 3:
+                                startDate = LocalDate.of(LocalDate.now().minusYears(1).getYear(), Month.OCTOBER, 1);
+                                endDate = LocalDate.of(LocalDate.now().minusYears(1).getYear(), Month.DECEMBER, 31);
+                                break;
+                            case 4:
+                            case 5:
+                            case 6:
+                                startDate = LocalDate.of(LocalDate.now().getYear(), Month.JANUARY, 1);
+                                endDate = LocalDate.of(LocalDate.now().getYear(), Month.MARCH, 31);
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                                startDate = LocalDate.of(LocalDate.now().getYear(), Month.APRIL, 1);
+                                endDate = LocalDate.of(LocalDate.now().getYear(), Month.JUNE, 30);
+                                break;
+                            case 10:
+                            case 11:
+                            case 12:
+                                startDate = LocalDate.of(LocalDate.now().getYear(), Month.JULY, 1);
+                                endDate = LocalDate.of(LocalDate.now().getYear(), Month.SEPTEMBER, 30);
+                                break;
+                        }
+                    }
+
+                    if (comboBoxDate.equals("Last Month")) {
+                        startDate = LocalDate.now().minusMonths(1).withDayOfMonth(1);
+
+                        switch (LocalDate.now().minusMonths(1).getMonthValue())
+                        {
+                            case 1:
+                            case 3:
+                            case 5:
+                            case 7:
+                            case 8:
+                            case 10:
+                            case 12:
+                                endDate = LocalDate.now().minusMonths(1).withDayOfMonth(31);
+                                break;
+                            case 2:
+                                if (((Year.now().getValue()% 4==0)
+                                        &&!(Year.now().getValue()%100==0))
+                                        ||(Year.now().getValue()%400==0))
+                                    endDate = LocalDate.now().minusMonths(1).withDayOfMonth(29);
+                                else
+                                    endDate = LocalDate.now().minusMonths(1).withDayOfMonth(28);
+                                break;
+                            case 4:
+                            case 6:
+                            case 9:
+                            case 11:
+                                endDate = LocalDate.now().minusMonths(1).withDayOfMonth(30);
+                                break;
+                        }
+                    }
+
                     if (comboBoxDate.equals("Last Calendar Year")) {
                         startDate = LocalDate.now().withDayOfYear(1).minusYears(1);
-                        endDate = LocalDate.now().withDayOfYear(365).minusYears(1);
+                        if (((Year.now().minusYears(1).getValue()%4==0)
+                                &&!(Year.now().minusYears(1).getValue()%100==0))
+                                ||(Year.now().minusYears(1).getValue()%400==0))
+                            endDate = LocalDate.now().minusYears(1).withDayOfYear(366);
+                        else
+                            endDate = LocalDate.now().minusYears(1).withDayOfYear(365);
                     }
-                    if (comboBoxDate.equals("Next Calendar Year")) {
-                        startDate = LocalDate.now().withDayOfYear(1).plusYears(1);
-                        endDate = LocalDate.now().withDayOfYear(365).plusYears(1);
+
+                    if (comboBoxDate.equals("Current Year to Date")) {
+                        startDate = LocalDate.now().withDayOfYear(1);
+                        endDate = LocalDate.now();
                     }
-//                if (comboBoxDate.equals("Next Calendar Year")) {
-//                    startDate = LocalDate.now().;
-//                    endDate = LocalDate.now().withDayOfYear(365).plusYears(1);
-//                }
+
+                    if (comboBoxDate.equals("Current Qrt to Date")) {
+                        endDate = LocalDate.now();
+                        switch (LocalDate.now().getMonthValue())
+                        {
+                            case 1:
+                            case 2:
+                            case 3:
+                                startDate = LocalDate.of(LocalDate.now().getYear(), Month.JANUARY, 1);
+                                break;
+                            case 4:
+                            case 5:
+                            case 6:
+                                startDate = LocalDate.of(LocalDate.now().getYear(), Month.APRIL, 1);
+                                break;
+                            case 7:
+                            case 8:
+                            case 9:
+                                startDate = LocalDate.of(LocalDate.now().getYear(), Month.JULY, 1);
+                                break;
+                            case 10:
+                            case 11:
+                            case 12:
+                                startDate = LocalDate.of(LocalDate.now().getYear(), Month.OCTOBER, 1);
+                                break;
+                        }
+                    }
+
+                    if (comboBoxDate.equals("Current Month to Date")) {
+                        startDate = LocalDate.now().withDayOfMonth(1);
+                        endDate = LocalDate.now();
+                    }
 
 
                     if
