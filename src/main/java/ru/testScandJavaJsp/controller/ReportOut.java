@@ -97,9 +97,9 @@ public class ReportOut extends Dispatcher {
                             && DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("endDate"))) <= 0
                             && DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
                             ) {
-                        String performer = request.getParameter("performer");
+//                        String performer = request.getParameter("performer");
                         Database newBase = new Database();
-                        newBase.setPerformer(performer);
+                        newBase.setId(DatabaseList.list.get(i).getId());
                         newBase.setActivity(DatabaseList.list.get(i).getActivity());
                         newBase.setDate(DatabaseList.list.get(i).getDate());
                         newList.add(newBase);
@@ -132,9 +132,9 @@ public class ReportOut extends Dispatcher {
                                     &&
                                     DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
                             ) {
-                        String performer = request.getParameter("performer");
+//                        String performer = request.getParameter("performer");
                         Database newBase = new Database();
-                        newBase.setPerformer(performer);
+                        newBase.setId(DatabaseList.list.get(i).getId());
                         newBase.setActivity(DatabaseList.list.get(i).getActivity());
                         newBase.setDate(DatabaseList.list.get(i).getDate());
                         newList.add(newBase);
