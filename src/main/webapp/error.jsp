@@ -10,12 +10,31 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Страница успешного входа в систему</title>
+    <title>Страница, загружаемая при отсутствии отчетов  </title>
+    <style type="text/css">
+
+        .nameTable1
+        {
+            font-family: Arial, sans-serif;
+            margin-left: 200px;
+            margin-top: 20px;
+        }
+        A
+        { font-size: 20px;
+            color: blue;
+            margin-left: 370px;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-<h1>За указанный период отчетов не найдено!</h1>
+<div class="nameTable1">
+<h2>За указанный период отчетов не найдено!</h2>
+</div>
 
-<a href="">Искать заново</a>
+
+<a href="">Искать заново!</a>
+
 </body>
 </html>
 
