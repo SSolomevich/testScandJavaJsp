@@ -1,6 +1,6 @@
 package ru.testScandJavaJsp.controller;
 
-import org.hibernate.jpa.criteria.expression.function.AggregationFunction;
+//import org.hibernate.jpa.criteria.expression.function.AggregationFunction;
 import ru.testScandJavaJsp.model.ComboBoxDateList;
 import ru.testScandJavaJsp.model.Database;
 import ru.testScandJavaJsp.model.DatabaseList;
@@ -21,6 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
 
 /**
  * Created by 15 on 03.04.2017.
