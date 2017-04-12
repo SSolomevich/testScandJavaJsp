@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="ru.testScandJavaJsp.model.Database" %>
-<%@ page import="ru.testScandJavaJsp.model.DatabaseList" %><%--
+<%@ page import="ru.testScandJavaJsp.dao.DatabaseList" %><%--
   Created by IntelliJ IDEA.
   User: 15
   Date: 06.04.2017

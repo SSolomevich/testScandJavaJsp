@@ -1,18 +1,16 @@
 package ru.testScandJavaJsp.controller;
 
 //import org.hibernate.jpa.criteria.expression.function.AggregationFunction;
-import ru.testScandJavaJsp.model.ComboBoxDateList;
+import ru.testScandJavaJsp.dao.ComboBoxDateList;
 import ru.testScandJavaJsp.model.Database;
-import ru.testScandJavaJsp.model.DatabaseList;
+import ru.testScandJavaJsp.dao.DatabaseList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.View;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
@@ -100,7 +98,7 @@ public class ReportOut extends Dispatcher {
                             && DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("endDate"))) <= 0
                             && DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
                             ) {
-//                        String performer = request.getParameter("performer");
+
                         Database newBase = new Database();
                         newBase.setId(DatabaseList.list.get(i).getId());
                         newBase.setActivity(DatabaseList.list.get(i).getActivity());
@@ -231,7 +229,7 @@ public class ReportOut extends Dispatcher {
                                     &&
                                     DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
                             ) {
-//                        String performer = request.getParameter("performer");
+
                         Database newBase = new Database();
                         newBase.setId(DatabaseList.list.get(i).getId());
                         newBase.setActivity(DatabaseList.list.get(i).getActivity());

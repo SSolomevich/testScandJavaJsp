@@ -1,4 +1,6 @@
-package ru.testScandJavaJsp.model;
+package ru.testScandJavaJsp.dao;
+
+import ru.testScandJavaJsp.model.ComboBoxDate;
 
 import java.util.Arrays;
 import java.util.List;

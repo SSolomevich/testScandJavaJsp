@@ -1,4 +1,6 @@
-package ru.testScandJavaJsp.model;
+package ru.testScandJavaJsp.dao;
+
+import ru.testScandJavaJsp.model.Database;
 
 import java.sql.*;
 import java.time.LocalDate;
