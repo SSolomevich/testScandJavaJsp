@@ -13,7 +13,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Поиск отчетов</title>
     <style type="text/css">
-
         .nameTable
         {
             font-family: Arial, sans-serif;
@@ -37,9 +36,6 @@
             padding: 10px ;
             height: 40px;
             width: 150px;
-            /*height: 40px;*/
-            /*align-content: center;*/
-            /*text-align: center;*/
         }
         .noInput
         {
@@ -55,17 +51,15 @@
         {
             margin-left: 400px;
             margin-top: 15px;
-
         }
     </style>
-
 </head>
 <body>
 
 <h2 class="nameTable">Заполните поля для вывода списка отчетов:</h2>
 <form action="" method="post">
     <div class="table">
-    <table   >
+    <table>
         <tr>
             <td class="noInput">Start date:</td>
             <td><input type="date" name="startDate"   class="input"></td>
@@ -85,7 +79,7 @@
         </tr>
         <tr>
             <td class="noInput">Time period:</td>
-            <td  ><select name="comboBoxDate" class="input" >
+            <td><select name="comboBoxDate" class="input" >
                 <option value=""></option>
                 <c:forEach var="list2" items="${listComboBox}">
                     <option value="${list2}"> ${list2} </option>

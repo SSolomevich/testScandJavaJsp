@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="calendar" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -160,7 +162,13 @@
     <tr>
         <td class="input2"> ${performer.id}</td>
         <td class="input2">${performer.activity}</td>
-        <td class="input2"> ${performer.date}</td>
+        <%--Вывод даты в формате, согласно условию задания--%>
+        <td class="input2">
+                    <fmt:parseDate value="${performer.date}" pattern="yyyy-MM-dd"
+                         var="parsedDate" type="date" />
+                    <fmt:formatDate value="${parsedDate}" var="stdDatum"
+                         type="date" pattern="MMM d, yyyy" />
+                    ${stdDatum}</td>
     </tr>
     </c:forEach>
 </table>

@@ -27,8 +27,8 @@ import java.util.Set;
 public class ReportOut extends Dispatcher {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String protocol = req.getProtocol();
-        String msg = "421";
+//        String protocol = req.getProtocol();
+//        String msg = "421";
         RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
         // don't add your web-app name to the path
         Set<String> set1 = new HashSet<>();
@@ -56,10 +56,10 @@ public class ReportOut extends Dispatcher {
             throws ServletException, IOException {
 
 
-        DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        ServletContext ctx = getServletContext();
-        SimpleDateFormat format = new SimpleDateFormat();
-        format.applyPattern("yyyy-MM-dd");
+//        DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        ServletContext ctx = getServletContext();
+//        SimpleDateFormat format = new SimpleDateFormat();
+//        format.applyPattern("yyyy-MM-dd");
         ArrayList<Database> newList = new ArrayList<>();
 
         Set<String> set = new HashSet<>();
@@ -245,18 +245,4 @@ public class ReportOut extends Dispatcher {
             } else request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
