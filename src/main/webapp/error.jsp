@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 15
+  User: Sergey Solomevich
   Date: 06.04.2017
   Time: 0:18
   To change this template use File | Settings | File Templates.
@@ -12,7 +12,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Страница, загружаемая при отсутствии отчетов  </title>
     <style type="text/css">
-
         .nameTable1
         {
             font-family: Arial, sans-serif;
@@ -31,10 +30,7 @@
 <div class="nameTable1">
 <h2>За указанный период отчетов не найдено!</h2>
 </div>
-
-
 <a href="">Искать заново!</a>
-
 </body>
 </html>
 

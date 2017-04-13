@@ -6,8 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by 15 on 08.04.2017.
+ * Created by Sergey Solomevich on 08.04.2017.
  */
+// лист для всех комбо боксов, можно точно так же создать и подключить БД как и для DatabaseList
 public class ComboBoxDateList {
     public static List<ComboBoxDate> list = Arrays.asList(
             new ComboBoxDate("Last Qrt"),

@@ -3,15 +3,16 @@ package ru.testScandJavaJsp.dao;
 import ru.testScandJavaJsp.model.Database;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.*;
 
 /**
- * Created by 15 on 02.04.2017.
+ * Created by Sergey Solomevich on 02.04.2017.
  */
+
+// ДАО для подключения к базе данных
 public class DatabaseList {
+//    ниже закоментировано создание листа без базы данных, использованного на стадии разработки,
+//    для проверки работоспособности приложения до подключения БД
 
 //    public static  List<Database> list = Arrays.asList(
 //       new Database(1, LocalDate.of(2017, Month.APRIL, 8),"Anton","report1"),
@@ -26,47 +27,46 @@ public class DatabaseList {
 //       new Database(10, LocalDate.of(2017, Month.MARCH, 17),"Daria","report10")
 //    );
 
-    public static  List<Database> list2 = new ArrayList<>();
-    public static  List<Database> list = a(list2);
-    // JDBC URL, username and password of MySQL server
+
+
+    public static  List<Database>  list = createListFromMysql(new ArrayList<>());
+// JDBC URL, username и password of MySQL server
     private static final String url = "jdbc:mysql://localhost:3306/test_scand";
     private static final String user = "root";
     private static final String password = "root";
 
-    // JDBC variables for opening and managing connection
+// JDBC variables for opening and managing connection
     private static Connection con;
     private static Statement stmt;
     private static ResultSet rs;
 
-//    public static void main(String args[]) {
-    public static List<Database>  a(List<Database> list) {
+    public static List<Database> createListFromMysql(List<Database> list) {
         String query = "select * from reports";
 
         try {
-            // opening database connection to MySQL server
+// opening database connection to MySQL server
             DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
             con = DriverManager.getConnection(url, user, password);
 
-            // getting Statement object to execute query
+// getting Statement object to execute query
             stmt = con.createStatement();
 
-            // executing SELECT query
+// executing SELECT query
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                Database database = new Database();
-                database.setId(rs.getInt("id"));
+                Database reports = new Database();
+                reports.setId(rs.getInt("id"));
 
-                database.setDate(rs.getDate("date").toLocalDate());
-                database.setPerformer(rs.getString("performer"));
-                database.setActivity(rs.getString("activity"));
-                list.add(database);
+                reports.setDate(rs.getDate("date").toLocalDate());
+                reports.setPerformer(rs.getString("performer"));
+                reports.setActivity(rs.getString("activity"));
+                list.add(reports);
             }
-
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         } finally {
-            //close connection ,stmt and resultset here
+//close connection ,stmt and resultset here
             try {
                 con.close();
             } catch (SQLException se) { /*can't do anything */ }
@@ -77,13 +77,6 @@ public class DatabaseList {
                 rs.close();
             } catch (SQLException se) { /*can't do anything */ }
         }
-//        for (int i=0; i<list.size();i++)
-//        {
-//            System.out.println(list.get(i).getActivity());
-//        }
     return list;
-
     }
-
-
 }

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 15
+  User: Sergey Solomevich
   Date: 02.04.2017
   Time: 22:08
   To change this template use File | Settings | File Templates.
@@ -14,9 +14,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Страница успешного входа в систему</title>
     <style type="text/css">
-
-
-
         .nameTable1
         {
             font-family: Arial, sans-serif;
@@ -47,7 +44,6 @@
             font-family: Arial, sans-serif;
             color: #333;
             line-height: 2px;
-            /*border: 3px;*/
             border-color: #333333;
             border-style: solid;
             border-width: 2px;
@@ -59,7 +55,6 @@
             padding: 10px ;
             height: 40px;
             width: 150px;
-
         }
         .noInput
         {
@@ -70,7 +65,6 @@
             text-align: left;
             height: 40px;
             width: 150px;
-
         }
         .input2
         {
@@ -107,7 +101,7 @@
 <h2 class="nameTable1">Заполните поля для вывода списка отчетов:</h2>
 <form action="" method="post">
     <div class="table1">
-        <table   >
+        <table>
             <tr>
                 <td class="noInput">Start date:</td>
                 <td><input type="date" name="startDate"   class="input"></td>
@@ -118,7 +112,7 @@
             </tr>
             <tr>
                 <td class="noInput">Performer:</td>
-                <td  ><select name="performer" class="input">
+                <td><select name="performer" class="input">
                     <option value="" >  All performers  </option>
                     <c:forEach var="list" items="${list}">
                         <option value="${list}"> ${list} </option>
@@ -127,7 +121,7 @@
             </tr>
             <tr>
                 <td class="noInput">Time period:</td>
-                <td  ><select name="comboBoxDate" class="input" >
+                <td><select name="comboBoxDate" class="input" >
                     <option value=""></option>
                     <c:forEach var="list2" items="${listComboBox}">
                         <option value="${list2}"> ${list2} </option>
@@ -147,32 +141,29 @@
         </table>
     </div>
 
-                <div class="nameTable2"><h2>По вашему запросу найдены следующие отчеты:</h2></div>
+    <div class="nameTable2"><h2>По вашему запросу найдены следующие отчеты:</h2></div>
 
-
-    <div >
-
-<table class="table2">
-    <tr>
-        <td class="noInput2" width="50px">ID</td>
-        <td class="noInput2" width="150px">Activity</td>
-        <td class="noInput2" width="50px">Date</td>
-    </tr>
-    <c:forEach items="${users}" var="performer">
-    <tr>
-        <td class="input2"> ${performer.id}</td>
-        <td class="input2">${performer.activity}</td>
-        <%--Вывод даты в формате, согласно условию задания--%>
-        <td class="input2">
+    <div>
+        <table class="table2">
+            <tr>
+                <td class="noInput2" width="50px">ID</td>
+                <td class="noInput2" width="150px">Activity</td>
+                 <td class="noInput2" width="50px">Date</td>
+             </tr>
+            <c:forEach items="${users}" var="performer">
+            <tr>
+                <td class="input2"> ${performer.id}</td>
+                 <td class="input2">${performer.activity}</td>
+                    <%--Вывод даты в формате, согласно условию задания--%>
+                 <td class="input2">
                     <fmt:parseDate value="${performer.date}" pattern="yyyy-MM-dd"
                          var="parsedDate" type="date" />
                     <fmt:formatDate value="${parsedDate}" var="stdDatum"
                          type="date" pattern="MMM d, yyyy" />
                     ${stdDatum}</td>
-    </tr>
-    </c:forEach>
-</table>
-
+            </tr>
+            </c:forEach>
+        </table>
     </div>
 </form>
 </body>

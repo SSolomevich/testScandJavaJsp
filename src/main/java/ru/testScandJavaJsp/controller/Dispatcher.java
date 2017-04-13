@@ -1,7 +1,7 @@
 package ru.testScandJavaJsp.controller;
 
 /**
- * Created by 15 on 03.04.2017.
+ * Created by Sergey Solomevich on 03.04.2017.
  */
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

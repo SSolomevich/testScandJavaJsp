@@ -5,8 +5,10 @@ import java.time.LocalDate;
 import java.time.LocalDate;
 import java.time.LocalTime;
 /**
- * Created by 15 on 02.04.2017.
+ * Created by Sergey Solomevich on 02.04.2017.
  */
+
+// Создаем модель для нашей БД
 public class Database {
 
     private int Id;

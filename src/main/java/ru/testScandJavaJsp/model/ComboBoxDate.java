@@ -3,8 +3,9 @@ package ru.testScandJavaJsp.model;
 import java.time.LocalDate;
 
 /**
- * Created by 15 on 08.04.2017.
+ * Created by Sergey Solomevich on 08.04.2017.
  */
+// Создаем модель для комбо бокса
 public class ComboBoxDate {
 
     private String comboBoxDate;

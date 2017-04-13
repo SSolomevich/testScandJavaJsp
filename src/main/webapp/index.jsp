@@ -2,17 +2,19 @@
 <%@ page import="ru.testScandJavaJsp.model.Database" %>
 <%@ page import="ru.testScandJavaJsp.dao.DatabaseList" %><%--
   Created by IntelliJ IDEA.
-  User: 15
+  User: Sergey Solomevich
   Date: 06.04.2017
   Time: 0:46
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Поиск отчетов</title>
     <style type="text/css">
+
         .nameTable
         {
             font-family: Arial, sans-serif;
@@ -70,7 +72,7 @@
         </tr>
         <tr>
             <td class="noInput">Performer:</td>
-            <td  ><select name="performer" class="input">
+            <td><select name="performer" class="input">
                 <option value="" >  All performers  </option>
                 <c:forEach var="list" items="${list}">
                     <option value="${list}"> ${list} </option>

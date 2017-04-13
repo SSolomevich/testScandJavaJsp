@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 15
+  User: Sergey Solomevich
   Date: 09.04.2017
   Time: 12:57
   To change this template use File | Settings | File Templates.
@@ -13,7 +13,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Страница ошибки ввода даты или исполнителя</title>
     <style type="text/css">
-
         .nameTable1
         {
             font-family: Arial, sans-serif;
@@ -36,7 +35,6 @@
             line-height: 2px;
             border: 3px;
         }
-
         .input
         {
             font-family: Arial, sans-serif;
@@ -44,7 +42,6 @@
             padding: 10px ;
             height: 40px;
             width: 150px;
-
         }
         .noInput
         {
@@ -55,10 +52,7 @@
             text-align: left;
             height: 40px;
             width: 150px;
-
         }
-
-
         .buttomSubmit
         {
             margin-left: 400px;
@@ -82,7 +76,7 @@
             </tr>
             <tr>
                 <td class="noInput">Performer:</td>
-                <td  ><select name="performer" class="input">
+                <td><select name="performer" class="input">
                     <option value="" >  All performers  </option>
                     <c:forEach var="list" items="${list}">
                         <option value="${list}"> ${list} </option>

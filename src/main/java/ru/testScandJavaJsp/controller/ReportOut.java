@@ -22,31 +22,30 @@ import java.util.Set;
 
 
 /**
- * Created by 15 on 03.04.2017.
+ * Created by Sergey Solomevich on 03.04.2017.
  */
+
 public class ReportOut extends Dispatcher {
 
+//  Создано 2 метода - гет и пост
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String protocol = req.getProtocol();
-//        String msg = "421";
+
         RequestDispatcher view = req.getRequestDispatcher("/index.jsp");
-        // don't add your web-app name to the path
+//  Создано 2 сета
+//  Первый для того, чтобы выбрать всех уникальных performer-ов из базы данных
         Set<String> set1 = new HashSet<>();
         for (int i=0;i<DatabaseList.list.size(); i++)
         {
             set1.add(DatabaseList.list.get(i).getPerformer());
         }
-
         req.setAttribute("list", set1);
-//        view.forward(req, resp);
 
-
+//  Второй для того, чтобы добавить все варианты комбо боксов
         Set<String> set2 = new HashSet<>();
         for (int i = 0; i< ComboBoxDateList.list.size(); i++)
         {
             set2.add(ComboBoxDateList.list.get(i).getComboBoxDate());
         }
-
         req.setAttribute("listComboBox", set2);
         view.forward(req, resp);
     }
@@ -55,13 +54,9 @@ public class ReportOut extends Dispatcher {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
-//        DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        ServletContext ctx = getServletContext();
-//        SimpleDateFormat format = new SimpleDateFormat();
-//        format.applyPattern("yyyy-MM-dd");
-        ArrayList<Database> newList = new ArrayList<>();
-
+//  В listResult будем класть все соответствующие запросам объекты Database
+        ArrayList<Database> listResult = new ArrayList<>();
+//  2 сета точно таких, как в методе гет
         Set<String> set = new HashSet<>();
         for (int i=0;i<DatabaseList.list.size(); i++)
         {
@@ -76,42 +71,43 @@ public class ReportOut extends Dispatcher {
         }
         request.setAttribute("listComboBox", set2);
 
-
-
-        if (    request.getParameter("performer").isEmpty()
-
-                || request.getParameter("startDate").isEmpty() && request.getParameter("comboBoxDate").isEmpty()
-                || request.getParameter("endDate").isEmpty() && request.getParameter("comboBoxDate").isEmpty()
-                ) {
+//  Проверка на то, что введен performer, введены начальная дата поиска и конечная или выбран комбо бокс
+//  если нет - переходим на errorDateOrPerformer.jsp
+        if (request.getParameter("performer").isEmpty()
+            || request.getParameter("startDate").isEmpty() && request.getParameter("comboBoxDate").isEmpty()
+            || request.getParameter("endDate").isEmpty() && request.getParameter("comboBoxDate").isEmpty())
+        {
             request.getRequestDispatcher("/errorDateOrPerformer.jsp").forward(request, response);
         }
 
+//  иначе разбиваем на 2 варианта
         else {
             for (int i = 0; i < DatabaseList.list.size(); i++) {
-                if (
-                        !request.getParameter("startDate").isEmpty()
-                                &&
-                                !request.getParameter("endDate").isEmpty()) {
-
+//  первый - для поиска по начальной дате и конечной
+                if (!request.getParameter("startDate").isEmpty()
+                    && !request.getParameter("endDate").isEmpty()) {
+//  получаем выбранные пользователем параметры дат и исполнителя и сравниваем с имеющимися в базе данных
                     if
                             (DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("startDate"))) >= 0
                             && DatabaseList.list.get(i).getDate().compareTo(LocalDate.parse(request.getParameter("endDate"))) <= 0
                             && DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
-                            ) {
-
+                            )
+                    {
+//  если условие выполнено - добавляем в listResult новый объект newBase, которому устанавливаем поля соответствующие полям объекта из DatabaseList.list
                         Database newBase = new Database();
                         newBase.setId(DatabaseList.list.get(i).getId());
                         newBase.setActivity(DatabaseList.list.get(i).getActivity());
                         newBase.setDate(DatabaseList.list.get(i).getDate());
-                        newList.add(newBase);
+                        listResult.add(newBase);
                     }
-
+//  второй вариант поиска - с помощью комбо бокса
                 } else if (!request.getParameter("comboBoxDate").isEmpty()) {
                     LocalDate startDate = LocalDate.now();
                     LocalDate endDate = LocalDate.now();
                     String comboBoxDate = request.getParameter("comboBoxDate");
 
-//                Перебираем все варианты Time period
+//  Перебираем все варианты Time period, когда находим соответствие comboBoxDate определенному
+//  Time period, то устанавливаем значения полям startDate и endDate
 
                     if (comboBoxDate.equals("Last Qrt")) {
                         switch (LocalDate.now().getMonthValue())
@@ -221,7 +217,6 @@ public class ReportOut extends Dispatcher {
                         endDate = LocalDate.now();
                     }
 
-
                     if
                             (
                             DatabaseList.list.get(i).getDate().compareTo(startDate) >= 0
@@ -229,18 +224,21 @@ public class ReportOut extends Dispatcher {
                                     &&
                                     DatabaseList.list.get(i).getPerformer().equals(request.getParameter("performer"))
                             ) {
-
                         Database newBase = new Database();
                         newBase.setId(DatabaseList.list.get(i).getId());
                         newBase.setActivity(DatabaseList.list.get(i).getActivity());
                         newBase.setDate(DatabaseList.list.get(i).getDate());
-                        newList.add(newBase);
+                        listResult.add(newBase);
                     }
                 }
             }
 
-            request.setAttribute("users", newList);
-            if (newList.size() > 0) {
+//  устанавливаем listResult для ответа на соответствующее обращение из jsp
+            request.setAttribute("users", listResult);
+
+//  если listResult не пуст, т.е. если найдены отчеты по запросу, то выводим их на странице success.jsp
+//  иначе пишем, что отчетов не найдено на странице error.jsp
+            if (listResult.size() > 0) {
                 request.getRequestDispatcher("/success.jsp").forward(request, response);
             } else request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
